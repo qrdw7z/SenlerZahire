@@ -56,7 +56,7 @@
             "logo_5tRp2Y": {
               "type": "logo",
               "settings": {
-                "inverse": false,
+                "inverse": true,
                 "font": "heading",
                 "text_color": "",
                 "unit": "percent",
@@ -427,7 +427,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#C1592E"
+                    "icon_color": "#c1592e"
                   },
                   "blocks": {}
                 },
@@ -508,7 +508,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#C1592E"
+                    "icon_color": "#c1592e"
                   },
                   "blocks": {}
                 },
@@ -589,7 +589,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#C1592E"
+                    "icon_color": "#c1592e"
                   },
                   "blocks": {}
                 },
@@ -670,7 +670,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#C1592E"
+                    "icon_color": "#c1592e"
                   },
                   "blocks": {}
                 },
@@ -751,7 +751,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#C1592E"
+                    "icon_color": "#c1592e"
                   },
                   "blocks": {}
                 },
