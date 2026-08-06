@@ -12,7 +12,7 @@
     "logo": "shopify://shop_images/SenlerZAHIREPNG.png",
     "logo_height": 100,
     "logo_height_mobile": 90,
-    "favicon": "shopify://shop_images/SenlerZAHIREPNG.png",
+    "favicon": "shopify://shop_images/senler_zahire.png",
     "page_text_color": "{{ settings.color_palette.foreground }}",
     "type_body_font": "karla_n4",
     "type_subheading_font": "karla_n7",
