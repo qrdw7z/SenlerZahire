@@ -19,12 +19,12 @@
       aria-label="{{ 'content.search_input_label' | t }}"
       aria-haspopup="dialog"
     >
-      <span class="svg-wrapper search-action__icon">
-        {{ 'icon-search.svg' | inline_asset_content }}
-      </span>
-
       <span class="search-action__placeholder">
         {{ 'content.search' | t }}
+      </span>
+
+      <span class="svg-wrapper search-action__icon">
+        {{ 'icon-search.svg' | inline_asset_content }}
       </span>
     </button>
   </search-button>
@@ -86,11 +86,12 @@
   .search-action__button {
     display: flex;
     align-items: center;
-    gap: 8px;
+    justify-content: space-between;
+    gap: 10px;
     width: 100%;
-    padding: 8px 14px;
-    border: var(--search-border-width) solid var(--color-border);
-    border-radius: var(--search-border-radius);
+    padding: 10px 16px;
+    border: 1.5px solid var(--color-foreground);
+    border-radius: 8px;
     background: var(--color-background);
     text-align: start;
   }
@@ -99,12 +100,12 @@
     flex-shrink: 0;
     width: var(--icon-size-sm, 16px);
     height: var(--icon-size-sm, 16px);
-    color: rgb(var(--color-foreground-rgb) / var(--opacity-50));
+    color: var(--color-foreground);
   }
 
   .search-action__placeholder {
     color: rgb(var(--color-foreground-rgb) / var(--opacity-50));
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
