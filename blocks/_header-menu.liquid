@@ -100,10 +100,14 @@
               assign link_icon = 'paw_print'
             when 'bakliyat'
               assign link_icon = 'leaf'
-            when 'tahıl ve tohum', 'tahil ve tohum', 'tahıl', 'tohum'
+            when 'tahıl & tohum', 'tahil & tohum', 'tahıl ve tohum', 'tahil ve tohum', 'tahıl', 'tohum'
               assign link_icon = 'plant'
-            when 'un ve şeker', 'un ve seker', 'un', 'şeker'
-              assign link_icon = 'box'
+            when 'un & şeker', 'un & seker', 'un ve şeker', 'un ve seker', 'un', 'şeker'
+              assign link_icon = 'serving_dish'
+            when 'i̇letişim', 'iletisim', 'iletişim'
+              assign link_icon = 'phone'
+            when 'kargom nerede?', 'kargom nerede', 'kargo takip', 'kargo'
+              assign link_icon = 'truck'
             else
               assign link_icon = 'box'
           endcase
