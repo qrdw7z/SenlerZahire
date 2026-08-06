@@ -11,20 +11,23 @@
 
 {% unless style == 'none' %}
   <search-button
-    class="search-action{% if display_style == 'text' %} search-action--text{% endif %}{% if class != blank %} {{ class | strip }}{% endif %}"
+    class="search-action search-action--bar{% if display_style == 'text' %} search-action--text{% endif %}{% if class != blank %} {{ class | strip }}{% endif %}"
   >
     <button
       on:click="#search-modal/showDialog"
-      class="button-unstyled header-actions__action{% if display_style == 'text' %} header-actions__text-style{% endif %}"
+      class="button-unstyled header-actions__action search-action__button"
       aria-label="{{ 'content.search_input_label' | t }}"
       aria-haspopup="dialog"
     >
-      <span class="{% if display_style == 'icon' %}hidden{% else %}mobile:hidden{% endif %}">
-        {{ 'content.search' | t }}
+      <span class="svg-wrapper search-action__icon">
+        {{ 'icon-search.svg' | inline_asset_content }}
       </span>
 
-      <span class="svg-wrapper {% if display_style != 'icon' %}desktop:hidden{% endif %}">
-        {{ 'icon-search.svg' | inline_asset_content }}
+      <span class="search-action__rotator" aria-hidden="true">
+        <span class="search-action__rotator-item">Bakliyat ara...</span>
+        <span class="search-action__rotator-item">Un ve Şeker ara...</span>
+        <span class="search-action__rotator-item">Tahıl ve Tohum ara...</span>
+        <span class="search-action__rotator-item">Yem ara...</span>
       </span>
     </button>
   </search-button>
@@ -73,6 +76,116 @@
 
     [data-menu-style='menu'] .header__column--left .search-action--text {
       margin-inline: 0;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .header__column--right .search-action--bar {
+      margin-inline: 0;
+      flex: 1 1 auto;
+      max-width: 480px;
+    }
+  }
+
+  .search-action__button {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    padding: 9px 14px;
+    border: 1px solid var(--color-border);
+    border-radius: 10px;
+    background: var(--color-background);
+    text-align: start;
+  }
+
+  .search-action__icon {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-50));
+  }
+
+  .search-action__rotator {
+    position: relative;
+    display: block;
+    flex: 1 1 auto;
+    height: 1.2em;
+    overflow: hidden;
+  }
+
+  .search-action__rotator-item {
+    position: absolute;
+    inset-inline-start: 0;
+    top: 0;
+    color: rgb(var(--color-foreground-rgb) / var(--opacity-50));
+    font-size: 0.875rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    opacity: 0;
+    transform: translateY(6px);
+    animation: search-action-rotate 8s infinite;
+  }
+
+  .search-action__rotator-item:nth-child(1) {
+    animation-delay: 0s;
+  }
+  .search-action__rotator-item:nth-child(2) {
+    animation-delay: -6s;
+  }
+  .search-action__rotator-item:nth-child(3) {
+    animation-delay: -4s;
+  }
+  .search-action__rotator-item:nth-child(4) {
+    animation-delay: -2s;
+  }
+
+  @keyframes search-action-rotate {
+    0% {
+      opacity: 0;
+      transform: translateY(6px);
+    }
+    3% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    20% {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    25% {
+      opacity: 0;
+      transform: translateY(-6px);
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .search-action__rotator-item {
+      animation: none;
+      opacity: 0;
+      transform: none;
+    }
+
+    .search-action__rotator-item:first-child {
+      opacity: 1;
+      position: static;
+    }
+  }
+
+  @media screen and (max-width: 989px) {
+    .search-action__rotator {
+      display: none;
+    }
+
+    .search-action__button {
+      padding: 9px;
+      border: none;
+      width: auto;
     }
   }
 {% endstylesheet %}
