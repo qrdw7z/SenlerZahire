@@ -93,6 +93,21 @@
 
     {% capture children %}
       {% for link in block_settings.menu.links %}
+        {% liquid
+          assign link_title_down = link.title | downcase
+          case link_title_down
+            when 'yemler', 'yem'
+              assign link_icon = 'paw_print'
+            when 'bakliyat'
+              assign link_icon = 'leaf'
+            when 'tahıl ve tohum', 'tahil ve tohum', 'tahıl', 'tohum'
+              assign link_icon = 'plant'
+            when 'un ve şeker', 'un ve seker', 'un', 'şeker'
+              assign link_icon = 'box'
+            else
+              assign link_icon = 'box'
+          endcase
+        %}
         <li
           role="presentation"
           class="menu-list__list-item"
@@ -117,7 +132,7 @@
           >
             <span class="menu-list__link-title">
               <span class="menu-list__link-icon" aria-hidden="true">
-                {% render 'icon-or-image', icon: 'box', width: 16, class_name: 'menu-list__link-icon-svg' %}
+                {% render 'icon-or-image', icon: link_icon, width: 16, class_name: 'menu-list__link-icon-svg' %}
               </span>
               {{- link.title -}}
             </span>
