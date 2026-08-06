@@ -135,6 +135,11 @@
                 {% render 'icon-or-image', icon: link_icon, width: 16, class_name: 'menu-list__link-icon-svg' %}
               </span>
               {{- link.title -}}
+              {%- if link.links != blank -%}
+                <span class="menu-list__link-caret svg-wrapper" aria-hidden="true">
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </span>
+              {%- endif -%}
             </span>
           </a>
           {%- if link.links != blank -%}
@@ -366,6 +371,13 @@
   .menu-list__link-icon-svg {
     width: 16px;
     height: 16px;
+  }
+  .menu-list__link-caret {
+    display: inline-flex;
+    flex-shrink: 0;
+    width: 10px;
+    height: 10px;
+    opacity: 0.6;
   }
   [slot='overflow'] .menu-list__link-title {
     padding-inline: 0;
