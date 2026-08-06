@@ -9,10 +9,10 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/Dogal_Tercihiniz.png",
+    "logo": "",
     "logo_height": 87,
     "logo_height_mobile": 75,
-    "favicon": "shopify://shop_images/favic_98fd15b4-5fad-416e-8c23-73efbf630c75.png",
+    "favicon": "",
     "page_text_color": "{{ settings.color_palette.foreground }}",
     "type_body_font": "karla_n4",
     "type_subheading_font": "karla_n7",
