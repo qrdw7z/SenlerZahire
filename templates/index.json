@@ -92,7 +92,6 @@
       "name": "t:names.hero",
       "settings": {
         "media_type_1": "image",
-        "image_1": "",
         "media_type_2": "image",
         "stack_media_on_mobile": false,
         "custom_mobile_media": false,
@@ -413,6 +412,7 @@
             "vertical_on_mobile": true,
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "center",
+            "align_baseline": false,
             "horizontal_alignment_flex_direction_column": "flex-start",
             "vertical_alignment_flex_direction_column": "center",
             "gap": 12,
@@ -423,12 +423,21 @@
             "height": "fit",
             "custom_height": 100,
             "background_media": "none",
+            "background_color": "",
             "video_position": "cover",
             "background_image_position": "cover",
+            "toggle_overlay": false,
+            "overlay_color": "#00000026",
+            "overlay_style": "solid",
+            "gradient_direction": "to top",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 0,
+            "link": "",
+            "open_in_new_tab": false,
+            "placeholder": "",
             "padding-block-start": 0,
             "padding-block-end": 0,
             "padding-inline-start": 0,
@@ -440,6 +449,9 @@
               "name": "t:names.text",
               "settings": {
                 "text": "<h2>Kategorilerimiz</h2>",
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
                 "type_preset": "h2",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
@@ -447,9 +459,10 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
+                "text_color": "",
+                "background": false,
+                "background_color": "#00000026",
+                "corner_radius": 0,
                 "padding-block-start": 0,
                 "padding-block-end": 16,
                 "padding-inline-start": 0,
@@ -458,35 +471,34 @@
               "blocks": {}
             }
           },
-          "block_order": ["text_kategoriler"]
+          "block_order": [
+            "text_kategoriler"
+          ]
         },
         "static-collection-card": {
           "type": "_collection-card",
           "name": "t:names.collection_card",
           "static": true,
           "settings": {
+            "placement": "on_image",
             "horizontal_alignment": "flex-start",
             "vertical_alignment": "flex-end",
-            "placement": "on_image",
+            "collection_card_gap": 8,
+            "background_color": "",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
+            "border_color": "",
             "border_radius": 16
           },
           "blocks": {
-            "collection-card-image": {
-              "type": "_collection-card-image",
-              "name": "t:names.collection_card_image",
-              "static": true,
-              "settings": {
-                "image_ratio": "square"
-              },
-              "blocks": {}
-            },
             "collection-title": {
               "type": "collection-title",
               "name": "t:names.collection_title",
               "settings": {
+                "width": "fit-content",
+                "max_width": "normal",
+                "alignment": "left",
                 "type_preset": "h5",
                 "font": "var(--font-body--family)",
                 "font_size": "1rem",
@@ -494,25 +506,45 @@
                 "letter_spacing": "normal",
                 "case": "none",
                 "wrap": "pretty",
-                "width": "fit-content",
-                "max_width": "normal",
-                "alignment": "left",
                 "background": true,
-                "background_color": "#F2F4EE",
+                "background_color": "#f2f4ee",
+                "text_color": "{{ settings.color_palette.foreground }}",
+                "corner_radius": 0,
                 "padding-block-start": 6,
                 "padding-block-end": 6,
                 "padding-inline-start": 12,
                 "padding-inline-end": 12
               },
               "blocks": {}
+            },
+            "collection-card-image": {
+              "type": "_collection-card-image",
+              "name": "t:names.collection_card_image",
+              "static": true,
+              "settings": {
+                "image_ratio": "square",
+                "toggle_overlay": false,
+                "overlay_color": "#00000026",
+                "overlay_style": "solid",
+                "gradient_direction": "to top",
+                "border": "none",
+                "border_width": 1,
+                "border_opacity": 100,
+                "border_color": "",
+                "border_radius": 0
+              },
+              "blocks": {}
             }
           },
-          "block_order": ["collection-title"]
+          "block_order": [
+            "collection-title"
+          ]
         }
       },
       "block_order": [
         "group_kategoriler"
       ],
+      "disabled": true,
       "name": "t:names.collection_list",
       "settings": {
         "collection_list": [],
@@ -522,7 +554,9 @@
         "mobile_columns": "2",
         "mobile_card_size": "60cqw",
         "columns_gap": 16,
+        "bento_gap": 8,
         "rows_gap": 16,
+        "max_collections": 4,
         "icons_style": "arrow",
         "icons_shape": "none",
         "section_width": "page-width",
@@ -573,7 +607,7 @@
               "type": "text",
               "name": "t:names.collection_title",
               "settings": {
-                "text": "<h3>Öne Çıkan Ürünler</h3>",
+                "text": "<h3>Ürünlerimiz</h3>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -739,7 +773,6 @@
           "static": true,
           "settings": {
             "media_type": "image",
-            "image": "",
             "link": "",
             "video_loop": true,
             "video_autoplay": false,
