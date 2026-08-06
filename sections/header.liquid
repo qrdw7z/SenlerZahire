@@ -848,6 +848,12 @@
         --header-left: auto;
         --header-right: minmax(max-content, 1fr);
       }
+
+      /* If there is no header-menu in the top row at all (e.g. menu moved to bottom row), let the left column (logo/search) grow and keep the right column (actions) tight */
+      &:where(:not(:has(header-menu))) {
+        --header-right: minmax(max-content, auto);
+        --header-left: minmax(max-content, 1fr);
+      }
     }
 
     @media screen and (max-width: 749px) {
