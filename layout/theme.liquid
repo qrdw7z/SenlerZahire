@@ -137,10 +137,6 @@
         data-template="{{ template }}"
       >
         {{ content_for_layout }}
-
-        {%- if template == 'page.contact' or template.name == 'page.contact' -%}
-          {%- render 'contact-intro' -%}
-        {%- endif -%}
       </main>
 
       <footer>
