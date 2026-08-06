@@ -47,9 +47,9 @@
           "settings": {
             "text": "<strong>🌱 Yerel Üreticilerden, Sofranıza Taze Ulaşır</strong>",
             "link": "",
-            "font": "var(--font-subheading--family)",
+            "font": "var(--font-heading--family)",
             "font_size": "0.75rem",
-            "weight": "",
+            "weight": "700",
             "letter_spacing": "normal",
             "case": "none",
             "text_color": ""
@@ -61,9 +61,9 @@
           "settings": {
             "text": "<strong>📦 Kapıda Ödeme Mevcut</strong>",
             "link": "",
-            "font": "var(--font-subheading--family)",
+            "font": "var(--font-heading--family)",
             "font_size": "0.75rem",
-            "weight": "",
+            "weight": "700",
             "letter_spacing": "normal",
             "case": "none",
             "text_color": ""
