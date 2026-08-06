@@ -115,7 +115,12 @@
             {% endif %}
             ref="menuitem"
           >
-            <span class="menu-list__link-title">{{- link.title -}}</span>
+            <span class="menu-list__link-title">
+              <span class="menu-list__link-icon" aria-hidden="true">
+                {% render 'icon-or-image', icon: 'box', width: 16, class_name: 'menu-list__link-icon-svg' %}
+              </span>
+              {{- link.title -}}
+            </span>
           </a>
           {%- if link.links != blank -%}
             <div class="menu-list__submenu{{ background_color_classes }}" ref="submenu[]">
@@ -333,9 +338,21 @@
 
   .menu-list__link-title {
     padding-inline: calc(var(--gap-xl) / 2);
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
   }
   [slot='overflow'] .menu-list__link-title {
     padding-inline: 0;
+  }
+  .menu-list__link-icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    opacity: 0.75;
+  }
+  .menu-list__link-icon-svg {
+    width: 16px;
+    height: 16px;
   }
 
   .menu-list__list-item:not([slot='overflow']) {
