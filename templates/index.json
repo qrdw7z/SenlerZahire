@@ -660,7 +660,7 @@
           "static": true,
           "settings": {
             "product_card_gap": 4,
-            "background_color": "#ffffff",
+            "background_color": "{{ settings.color_palette.background }}",
             "border": "none",
             "border_width": 1,
             "border_opacity": 100,
