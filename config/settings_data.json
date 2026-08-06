@@ -10,8 +10,8 @@
 {
   "current": {
     "logo": "",
-    "logo_height": 87,
-    "logo_height_mobile": 75,
+    "logo_height": 110,
+    "logo_height_mobile": 90,
     "favicon": "",
     "page_text_color": "{{ settings.color_palette.foreground }}",
     "type_body_font": "karla_n4",
