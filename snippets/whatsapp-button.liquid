@@ -1,0 +1,273 @@
+{%- doc -%}
+  Renders a floating WhatsApp chat widget, fixed to the bottom-left corner.
+  Clicking the button opens a small preview popup with the prefilled message;
+  clicking "Gönder" inside the popup opens the WhatsApp chat.
+{%- enddoc -%}
+
+{% liquid
+  assign whatsapp_number = '905427666235'
+  assign whatsapp_message = 'Merhaba, sipariş vermek istiyorum.'
+%}
+
+<div class="whatsapp-widget">
+  <div class="whatsapp-popup" id="whatsapp-popup" hidden>
+    <div class="whatsapp-popup__header">
+      <span class="whatsapp-popup__avatar">
+        <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 20 20">
+          {%- render 'icon', icon: 'whatsapp' -%}
+        </svg>
+      </span>
+      <span class="whatsapp-popup__identity">
+        <span class="whatsapp-popup__name">Doğal Tercihiniz</span>
+        <span class="whatsapp-popup__status">Genellikle birkaç dakika içinde yanıtlar</span>
+      </span>
+      <button type="button" class="whatsapp-popup__close" id="whatsapp-popup-close" aria-label="Kapat">
+        &times;
+      </button>
+    </div>
+    <div class="whatsapp-popup__body">
+      <p class="whatsapp-popup__bubble">{{ whatsapp_message }}</p>
+    </div>
+    <a
+      href="https://wa.me/{{ whatsapp_number }}?text={{ whatsapp_message | url_encode }}"
+      class="whatsapp-popup__send"
+      target="_blank"
+      rel="noopener"
+    >
+      WhatsApp'ta Gönder
+    </a>
+  </div>
+
+  <button
+    type="button"
+    class="whatsapp-float-button"
+    id="whatsapp-toggle"
+    aria-label="WhatsApp üzerinden bize yazın"
+    aria-expanded="false"
+  >
+    <svg
+      aria-hidden="true"
+      focusable="false"
+      xmlns="http://www.w3.org/2000/svg"
+      width="28"
+      height="28"
+      viewBox="0 0 20 20"
+    >
+      {%- render 'icon', icon: 'whatsapp' -%}
+    </svg>
+  </button>
+</div>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('whatsapp-toggle');
+    var popup = document.getElementById('whatsapp-popup');
+    var closeButton = document.getElementById('whatsapp-popup-close');
+
+    if (!toggle || !popup) return;
+
+    function openPopup() {
+      popup.hidden = false;
+      toggle.setAttribute('aria-expanded', 'true');
+    }
+
+    function closePopup() {
+      popup.hidden = true;
+      toggle.setAttribute('aria-expanded', 'false');
+    }
+
+    toggle.addEventListener('click', function () {
+      if (popup.hidden) {
+        openPopup();
+      } else {
+        closePopup();
+      }
+    });
+
+    if (closeButton) {
+      closeButton.addEventListener('click', closePopup);
+    }
+
+    document.addEventListener('click', function (event) {
+      if (popup.hidden) return;
+      if (popup.contains(event.target) || toggle.contains(event.target)) return;
+      closePopup();
+    });
+
+    document.addEventListener('keydown', function (event) {
+      if (event.key === 'Escape' && !popup.hidden) {
+        closePopup();
+        toggle.focus();
+      }
+    });
+  })();
+</script>
+
+{% stylesheet %}
+  .whatsapp-widget {
+    position: fixed;
+    left: 20px;
+    bottom: 20px;
+    z-index: 400;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .whatsapp-float-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    border: none;
+    background-color: #25D366;
+    color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+    flex: none;
+  }
+
+  .whatsapp-float-button:hover {
+    transform: scale(1.06);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  }
+
+  .whatsapp-float-button svg {
+    fill: currentColor;
+    width: 28px;
+    height: 28px;
+  }
+
+  .whatsapp-popup {
+    order: -1;
+    width: 280px;
+    max-width: calc(100vw - 40px);
+    background: #ffffff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
+    animation: whatsapp-popup-in 0.16s ease-out;
+  }
+
+  .whatsapp-popup[hidden] {
+    display: none;
+  }
+
+  @keyframes whatsapp-popup-in {
+    from {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .whatsapp-popup__header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    background-color: #25D366;
+    color: #ffffff;
+  }
+
+  .whatsapp-popup__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    flex: none;
+  }
+
+  .whatsapp-popup__avatar svg {
+    fill: #ffffff;
+  }
+
+  .whatsapp-popup__identity {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.3;
+    margin-right: auto;
+  }
+
+  .whatsapp-popup__name {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  .whatsapp-popup__status {
+    font-size: 0.72rem;
+    opacity: 0.9;
+  }
+
+  .whatsapp-popup__close {
+    background: none;
+    border: none;
+    color: #ffffff;
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 2px 4px;
+    flex: none;
+  }
+
+  .whatsapp-popup__body {
+    padding: 14px;
+    background: #E5DDD5;
+  }
+
+  .whatsapp-popup__bubble {
+    background: #ffffff;
+    border-radius: 8px;
+    border-top-left-radius: 0;
+    padding: 8px 10px;
+    font-size: 0.86rem;
+    line-height: 1.45;
+    color: #1a1a1a;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+    margin: 0;
+  }
+
+  .whatsapp-popup__send {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 12px;
+    background-color: #128C7E;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 0.88rem;
+    text-decoration: none;
+  }
+
+  .whatsapp-popup__send:hover {
+    background-color: #0f7267;
+  }
+
+  @media screen and (max-width: 749px) {
+    .whatsapp-widget {
+      left: 14px;
+      bottom: 14px;
+    }
+
+    .whatsapp-float-button {
+      width: 50px;
+      height: 50px;
+    }
+
+    .whatsapp-float-button svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
+{% endstylesheet %}

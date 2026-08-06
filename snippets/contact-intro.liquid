@@ -1,0 +1,100 @@
+{%- doc -%}
+  Intro copy + quick contact channels (WhatsApp, e-posta, yanıt süresi) for
+  the İletişim page. Rendered directly from layout/theme.liquid instead of
+  through templates/page.contact.json — kept as a small, focused Liquid
+  file so it deploys with the rest of the theme rather than through the
+  JSON template pipeline.
+{%- enddoc -%}
+
+<div class="contact-intro page-width">
+  <p class="contact-intro__text">
+    Sorularınız, siparişleriniz veya iş birliği talepleriniz için bize her
+    zaman ulaşabilirsiniz. Formu doldurabilir ya da doğrudan WhatsApp
+    üzerinden yazabilirsiniz, size en kısa sürede dönüş yapalım.
+  </p>
+
+  <div class="contact-intro__channels">
+    <a
+      class="contact-intro__channel"
+      href="https://wa.me/905427666235?text=Merhaba%2C%20bir%20sorum%20var."
+      target="_blank"
+      rel="noopener"
+    >
+      {%- render 'icon', icon: 'whatsapp' -%}
+      <span>
+        <strong>WhatsApp</strong>
+        <br>
+        +90 542 766 62 35
+      </span>
+    </a>
+
+    {%- if shop.email != blank -%}
+      <a class="contact-intro__channel" href="mailto:{{ shop.email }}">
+        {%- render 'icon', icon: 'chat_bubble' -%}
+        <span>
+          <strong>E-posta</strong>
+          <br>
+          {{ shop.email }}
+        </span>
+      </a>
+    {%- endif -%}
+
+    <div class="contact-intro__channel">
+      {%- render 'icon', icon: 'stopwatch' -%}
+      <span>
+        <strong>Yanıt Süresi</strong>
+        <br>
+        Genellikle birkaç dakika içinde
+      </span>
+    </div>
+  </div>
+</div>
+
+{% style %}
+  .contact-intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+    text-align: center;
+    padding-block-start: 24px;
+  }
+
+  .contact-intro__text {
+    max-width: 40em;
+    color: var(--color-foreground);
+  }
+
+  .contact-intro__channels {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+  }
+
+  .contact-intro__channel {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-align: left;
+    color: var(--color-foreground);
+    text-decoration: none;
+  }
+
+  .contact-intro__channel svg {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    color: var(--color-foreground);
+  }
+
+  .contact-intro__channel span {
+    font-size: 0.875rem;
+    line-height: 1.4;
+  }
+
+  a.contact-intro__channel:hover {
+    text-decoration: underline;
+  }
+{% endstyle %}

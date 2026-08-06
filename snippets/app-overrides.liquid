@@ -1,0 +1,200 @@
+{%- doc -%}
+  Theme-side overrides for third-party app widgets that don't expose their
+  own styling/placement controls. Kept separate from theme.liquid so it's
+  easy to find and adjust as apps update their markup.
+{%- enddoc -%}
+
+{% style %}
+  /* Badge/feature rows (3+ icon+text items in a row, e.g. trust badges in
+     the footer and on the product page) — let items wrap onto a new line
+     instead of being squeezed until the text breaks mid-word. */
+  .layout-panel-flex--row:has(> .group-block:nth-child(3)) {
+    flex-wrap: wrap !important;
+    row-gap: 12px !important;
+  }
+
+  /* Product cards (collection/homepage grids): a soft shadow instead of a
+     hard outline gives them separation from the page background without
+     looking like a boxed-in frame around each product. */
+  .product-card {
+    box-shadow: 0 1px 2px rgba(30, 24, 12, 0.04), 0 4px 12px rgba(30, 24, 12, 0.06);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .product-card:hover {
+    box-shadow: 0 2px 4px rgba(30, 24, 12, 0.05), 0 8px 20px rgba(30, 24, 12, 0.09);
+    transform: translateY(-2px);
+  }
+
+  /* Releasit COD Form — "Kapıda Ödeme İle Satın Al" button, base style. */
+  button[class*="rsi_"] {
+    height: auto !important;
+    min-height: 0 !important;
+    padding: 16px 28px !important;
+    font-size: 16px !important;
+    line-height: 25.6px !important;
+    border-radius: 6px !important;
+    gap: 8px !important;
+    pointer-events: auto !important;
+  }
+
+  button[class*="rsi_"] svg {
+    width: 20px !important;
+    height: 20px !important;
+    flex: none !important;
+  }
+
+  @media screen and (max-width: 749px) {
+    button[class*="rsi_"] {
+      padding: 12px 18px !important;
+      font-size: 13px !important;
+      line-height: 18px !important;
+    }
+
+    button[class*="rsi_"] svg {
+      width: 15px !important;
+      height: 15px !important;
+    }
+  }
+
+  /* Product card titles: clamp to 2 lines so cards with longer product
+     names don't push their price/button lower than the rest of the row. */
+  product-card [class*="product_title"] {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 2 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+    height: 2lh !important;
+  }
+
+  /* On product cards (collection/homepage grids) the button is relocated by
+     the script below from the image overlay to sit in normal flow under the
+     price, like a second "buy" button. Style it accordingly. */
+  .product-card__content > .rsi-homepage-container {
+    width: 100%;
+    margin-top: 6px;
+  }
+
+  /* Product detail page: tighten the gap between "Sepete ekle" and the
+     "Kapıda Ödeme İle Satın Al" button underneath it. The COD button's own
+     wrapper markup/class varies (the app uses different embeds for the
+     product page vs. product cards), but both sit inside this theme-owned
+     flex container, so targeting its row-gap directly is more reliable. */
+  .product-form-buttons--stacked {
+    row-gap: 2px !important;
+  }
+
+  .product-card__content > .rsi-homepage-container button[class*="rsi_"] {
+    width: 100%;
+    padding: 12px 16px !important;
+    font-size: 12.5px !important;
+  }
+
+  /* "İlginizi Çekebilir" cards: COD link styled to match the relocated COD
+     button on collection/homepage cards, in the same classic content-area
+     position, even though it's a plain link rather than the app's widget. */
+  .product-recommendations__cod-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-top: 6px;
+    padding: 12px 16px;
+    font-size: 12.5px;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  /* Footer utilities row (copyright + policy links): stack copyright on top
+     of the policy links, centered, instead of side-by-side — the copyright
+     text wraps to two lines on its own while the links stay on one line,
+     which looked lopsided in a side-by-side grid. */
+  .utilities {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    gap: 8px !important;
+  }
+
+  .utilities > * {
+    justify-self: center !important;
+    text-align: center !important;
+  }
+
+  .policy_list--inline {
+    justify-content: center !important;
+  }
+
+  /* On narrow screens, wrapped-and-centered policy links produce ragged,
+     uneven line lengths. A single centered column reads as tidy instead. */
+  @media screen and (max-width: 749px) {
+    .policy_list--inline {
+      flex-direction: column !important;
+      align-items: center !important;
+      gap: 10px !important;
+    }
+  }
+
+{% endstyle %}
+
+<script>
+  (function () {
+    function relocate(card) {
+      if (card.dataset.rsiRelocated === 'true') return;
+      var wrapper = card.querySelector('.rsi-homepage-container');
+      var content = card.querySelector('.product-card__content');
+      if (!wrapper || !content) return;
+      content.appendChild(wrapper);
+      card.dataset.rsiRelocated = 'true';
+    }
+
+    function scan() {
+      document.querySelectorAll('product-card').forEach(relocate);
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', scan);
+    } else {
+      scan();
+    }
+
+    var observer = new MutationObserver(function () {
+      scan();
+    });
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+  })();
+
+  // "İlginizi Çekebilir" (related products) cards: Releasit only injects its
+  // COD widget on the main product page, not into this dynamically-loaded
+  // recommendations grid, so each card gets a plain link to that product's
+  // own page instead — where the real COD button is — rather than faking a
+  // buy button that could open checkout for the wrong product.
+  (function () {
+    function addCodLinks() {
+      document.querySelectorAll('.product-recommendations product-card').forEach(function (card) {
+        if (card.dataset.codLinkAdded === 'true') return;
+        var content = card.querySelector('.product-card__content');
+        var productLink = card.querySelector('a[href*="/products/"]');
+        if (!content || !productLink) return;
+        var link = document.createElement('a');
+        link.href = productLink.getAttribute('href');
+        link.className = 'button-secondary product-recommendations__cod-link';
+        link.textContent = 'Kapıda Ödeme';
+        content.appendChild(link);
+        card.dataset.codLinkAdded = 'true';
+      });
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', addCodLinks);
+    } else {
+      addCodLinks();
+    }
+
+    var recObserver = new MutationObserver(function () {
+      addCodLinks();
+    });
+    recObserver.observe(document.documentElement, { childList: true, subtree: true });
+  })();
+</script>
