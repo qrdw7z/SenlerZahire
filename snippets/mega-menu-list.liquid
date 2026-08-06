@@ -10,6 +10,7 @@
   @param {number} [content_aspect_ratio] - Aspect ratio for content images.
   @param {number} [image_border_radius] - Border radius for content images.
   @param {object} [section] - The section object.
+  @param {number} [max_featured_products_setting] - Max number of featured products to show (defaults to 4).
 
   @example
   {% render 'mega-menu-list', parent_link: link, id: 'MegaMenuList-1', grid_columns_count: 6, menu_content_type: 'featured_products' %}
@@ -186,7 +187,7 @@
   # decide how many grid columns are needed for the menu list, and how many columns are needed for the featured content
   # prioritize a minimum of 1 featured_collection (2 columns), and minimum 2 featured_products (2 columns)
   assign min_products = 2
-  assign max_products = 3
+  assign max_products = max_featured_products_setting | default: 4
   assign min_products_tablet = 1
   assign max_products_tablet = 3
   assign min_collections = 1
@@ -303,6 +304,12 @@
           {% endpaginate %}
         {% endif %}
       </ul>
+
+      {% if collection_object %}
+        <a href="{{ collection_object.url }}" class="button mega-menu__view-all">
+          {{ 'actions.view_all' | t }}
+        </a>
+      {% endif %}
     </span>
   {% when 'featured_collections' %}
     {% assign collection_handles = collection_handles | split: ',' | uniq %}
@@ -344,3 +351,11 @@
       </ul>
     </span>
 {% endcase %}
+
+{% stylesheet %}
+  .mega-menu__view-all {
+    display: inline-flex;
+    align-self: flex-start;
+    margin-top: var(--gap-md, 16px);
+  }
+{% endstylesheet %}

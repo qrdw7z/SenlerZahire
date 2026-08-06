@@ -139,7 +139,8 @@
                       grid_columns_count_collection_images: 8,
                       menu_content_type: menu_content_type,
                       content_aspect_ratio: ratio,
-                      image_border_radius: image_border_radius
+                      image_border_radius: image_border_radius,
+                      max_featured_products_setting: block_settings.featured_products_count
                     %}
                   </div>
                 </div>
@@ -879,6 +880,16 @@
         }
       ],
       "default": "4 / 5",
+      "visible_if": "{{ block.settings.menu_style == 'featured_products' }}"
+    },
+    {
+      "type": "range",
+      "id": "featured_products_count",
+      "label": "Gösterilecek ürün sayısı",
+      "min": 2,
+      "max": 6,
+      "step": 1,
+      "default": 4,
       "visible_if": "{{ block.settings.menu_style == 'featured_products' }}"
     },
     {
