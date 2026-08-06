@@ -428,7 +428,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#c1592e"
+                    "icon_color": "{{ settings.color_palette.background }}"
                   },
                   "blocks": {}
                 },
@@ -509,7 +509,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#c1592e"
+                    "icon_color": "{{ settings.color_palette.background }}"
                   },
                   "blocks": {}
                 },
@@ -590,7 +590,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#c1592e"
+                    "icon_color": "{{ settings.color_palette.background }}"
                   },
                   "blocks": {}
                 },
@@ -671,7 +671,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#c1592e"
+                    "icon_color": "{{ settings.color_palette.background }}"
                   },
                   "blocks": {}
                 },
@@ -752,7 +752,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#c1592e"
+                    "icon_color": "{{ settings.color_palette.background }}"
                   },
                   "blocks": {}
                 },
