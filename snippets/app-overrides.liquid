@@ -26,6 +26,14 @@
     transform: translateY(-2px);
   }
 
+  /* Releasit COD Form — hide the "Kapıda Ödeme İle Satın Al" button(s)
+     entirely while the cart is empty (nothing to check out yet). The
+     `cart-is-empty` class is toggled on <html> by the script below. */
+  :root.cart-is-empty button[class*="rsi_"],
+  :root.cart-is-empty .rsi-homepage-container {
+    display: none !important;
+  }
+
   /* Releasit COD Form — "Kapıda Ödeme İle Satın Al" button, base style. */
   button[class*="rsi_"] {
     height: auto !important;
@@ -137,6 +145,25 @@
   }
 
 {% endstyle %}
+
+<script type="module">
+  import { StandardEvents } from '@shopify/events';
+
+  function setCartEmptyState(itemCount) {
+    document.documentElement.classList.toggle('cart-is-empty', itemCount === 0);
+  }
+
+  setCartEmptyState({{ cart.item_count | default: 0 }});
+
+  document.addEventListener(StandardEvents.cartLinesUpdate, (event) => {
+    event.promise
+      ?.then(({ cart, detail }) => {
+        const itemCount = cart?.totalQuantity ?? detail?.itemCount ?? 0;
+        setCartEmptyState(itemCount);
+      })
+      .catch(() => {});
+  });
+</script>
 
 <script>
   (function () {
