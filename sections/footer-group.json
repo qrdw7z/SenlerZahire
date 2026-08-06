@@ -314,6 +314,7 @@
             "payment_image_upload": {
               "type": "image",
               "settings": {
+                "image": "shopify://shop_images/payments.png",
                 "link": "",
                 "image_ratio": "adapt",
                 "width": "fit-content",
