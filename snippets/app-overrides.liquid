@@ -153,7 +153,23 @@
     document.documentElement.classList.toggle('cart-is-empty', itemCount === 0);
   }
 
-  setCartEmptyState({{ cart.item_count | default: 0 }});
+  // cart-icon.js writes this on every cart update, so it's a more reliable
+  // source than the liquid-rendered count when the HTML itself may have
+  // been served from a cache (or restored from bfcache — see below).
+  function readCachedCartCount() {
+    try {
+      const raw = sessionStorage.getItem('cart-count');
+      if (!raw) return null;
+      const { value, timestamp } = JSON.parse(raw);
+      if (Date.now() - timestamp > 10000) return null;
+      const count = parseInt(value, 10);
+      return count >= 0 ? count : null;
+    } catch (_) {
+      return null;
+    }
+  }
+
+  setCartEmptyState(readCachedCartCount() ?? {{ cart.item_count | default: 0 }});
 
   document.addEventListener(StandardEvents.cartLinesUpdate, (event) => {
     event.promise
@@ -162,6 +178,16 @@
         setCartEmptyState(itemCount);
       })
       .catch(() => {});
+  });
+
+  // Pages restored from the back/forward cache don't re-run this module
+  // script, so `cart-is-empty` can go stale (e.g. cart was empty when this
+  // page was frozen, an item got added elsewhere, then the user hit "back").
+  // Mirror cart-icon.js's own pageshow handling to resync in that case.
+  window.addEventListener('pageshow', (event) => {
+    if (!event.persisted) return;
+    const itemCount = readCachedCartCount();
+    if (itemCount !== null) setCartEmptyState(itemCount);
   });
 </script>
 
