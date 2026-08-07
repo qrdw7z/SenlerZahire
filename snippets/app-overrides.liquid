@@ -165,28 +165,6 @@
     observer.observe(document.documentElement, { childList: true, subtree: true });
   })();
 
-  // Releasit COD Form renders every "Kapıda Ödeme İle Satın Al" button with
-  // the SAME id (rsi_buy_now_button) on every product card — a bug in the
-  // app's own widget markup, not something this snippet controls or sets.
-  // On any page listing more than one product (homepage, collections), the
-  // app's internal `document.getElementById('rsi_buy_now_button')` lookup
-  // always resolves to the FIRST one in the DOM, so clicking any button
-  // past the first opens the checkout for the WRONG product — a real risk
-  // of a cash-on-delivery order being placed for the wrong item.
-  // We can't fix Releasit's own code, but we can remove the ambiguity right
-  // as the click happens: strip the id from every other instance so only
-  // the one actually clicked keeps it, and leave it that way (don't restore
-  // on a timer) since the checkout form can stay open for minutes while the
-  // customer fills in their address, and Releasit likely re-resolves the id
-  // again at final submit.
-  document.addEventListener('click', function (event) {
-    var clicked = event.target.closest && event.target.closest('#rsi_buy_now_button');
-    if (!clicked) return;
-    document.querySelectorAll('#rsi_buy_now_button').forEach(function (el) {
-      if (el !== clicked) el.removeAttribute('id');
-    });
-  }, true);
-
   // "İlginizi Çekebilir" (related products) cards: Releasit only injects its
   // COD widget on the main product page, not into this dynamically-loaded
   // recommendations grid, so each card gets a plain link to that product's
