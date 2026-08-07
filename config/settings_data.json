@@ -11,8 +11,8 @@
   "current": {
     "logo": "shopify://shop_images/SenlerZAHIREPNG.png",
     "logo_inverse": "shopify://shop_images/senler_zahire.png",
-    "logo_height": 150,
-    "logo_height_mobile": 115,
+    "logo_height": 100,
+    "logo_height_mobile": 90,
     "favicon": "shopify://shop_images/senler_zahire.png",
     "page_text_color": "{{ settings.color_palette.foreground }}",
     "type_body_font": "karla_n4",
@@ -109,6 +109,11 @@
     "blocks": {
       "13669795325273674392": {
         "type": "shopify://apps/releasit-cod-form/blocks/app-embed/72faf214-4174-4fec-886b-0d0e8d3af9a2",
+        "disabled": false,
+        "settings": {}
+      },
+      "18408366429334172745": {
+        "type": "shopify://apps/pop-convert/blocks/app-embed/ed587aec-4936-43ae-a1b3-1c9e0d08f185",
         "disabled": false,
         "settings": {}
       }
