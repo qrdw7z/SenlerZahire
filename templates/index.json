@@ -2094,7 +2094,6 @@
           "block_order": []
         }
       },
-      "disabled": true,
       "name": "t:names.blog_posts",
       "settings": {
         "blog": "news",
