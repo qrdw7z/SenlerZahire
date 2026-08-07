@@ -2057,8 +2057,8 @@
               "name": "t:names.details",
               "static": true,
               "settings": {
-                "show_date": true,
-                "show_author": true,
+                "show_date": false,
+                "show_author": false,
                 "type_preset": "",
                 "alignment": "left",
                 "text_color": "",
