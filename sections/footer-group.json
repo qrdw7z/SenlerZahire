@@ -428,7 +428,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#C1592E"
+                    "icon_color": "#c1592e"
                   },
                   "blocks": {}
                 },
@@ -509,7 +509,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#C1592E"
+                    "icon_color": "#c1592e"
                   },
                   "blocks": {}
                 },
@@ -590,7 +590,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#C1592E"
+                    "icon_color": "#c1592e"
                   },
                   "blocks": {}
                 },
@@ -671,7 +671,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#C1592E"
+                    "icon_color": "#c1592e"
                   },
                   "blocks": {}
                 },
@@ -752,7 +752,7 @@
                     "width": 22,
                     "link": "",
                     "open_in_new_tab": false,
-                    "icon_color": "#C1592E"
+                    "icon_color": "#c1592e"
                   },
                   "blocks": {}
                 },
@@ -839,7 +839,7 @@
         "social_links_Ew63Kq": {
           "type": "social-links",
           "settings": {
-            "icon_color": "",
+            "icon_color": "{{ settings.color_palette.color1 }}",
             "facebook_url": "https://www.facebook.com/profile.php?id=61592502100800",
             "instagram_url": "https://www.instagram.com/dogaltercihiniz/",
             "youtube_url": "",
