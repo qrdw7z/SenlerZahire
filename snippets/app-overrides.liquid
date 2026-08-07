@@ -26,14 +26,6 @@
     transform: translateY(-2px);
   }
 
-  /* Releasit COD Form — hide the "Kapıda Ödeme İle Satın Al" button(s)
-     entirely while the cart is empty (nothing to check out yet). The
-     `cart-is-empty` class is toggled on <html> by the script below. */
-  :root.cart-is-empty button[class*="rsi_"],
-  :root.cart-is-empty .rsi-homepage-container {
-    display: none !important;
-  }
-
   /* Releasit COD Form — "Kapıda Ödeme İle Satın Al" button, base style. */
   button[class*="rsi_"] {
     height: auto !important;
@@ -145,47 +137,6 @@
   }
 
 {% endstyle %}
-
-<script type="module">
-  import { StandardEvents } from '@shopify/events';
-
-  function setCartEmptyState(itemCount) {
-    document.documentElement.classList.toggle('cart-is-empty', itemCount === 0);
-  }
-
-  // The liquid-rendered `cart.item_count` below can be stale — e.g. the
-  // browser serves a cached copy of this same URL's HTML on back/forward
-  // navigation, baked with whatever cart count was true at the time it was
-  // cached. /cart.js always reflects the live cart regardless of how the
-  // surrounding page HTML was served, so it's the source of truth here.
-  async function syncCartEmptyStateFromServer() {
-    try {
-      const res = await fetch('/cart.js', { credentials: 'same-origin' });
-      const cart = await res.json();
-      setCartEmptyState(cart?.item_count ?? 0);
-    } catch (_) {
-      // Leave whatever state is currently set.
-    }
-  }
-
-  setCartEmptyState({{ cart.item_count | default: 0 }});
-  syncCartEmptyStateFromServer();
-
-  document.addEventListener(StandardEvents.cartLinesUpdate, (event) => {
-    event.promise
-      ?.then(({ cart, detail }) => {
-        const itemCount = cart?.totalQuantity ?? detail?.itemCount ?? 0;
-        setCartEmptyState(itemCount);
-      })
-      .catch(() => {});
-  });
-
-  // Covers both bfcache restores (script doesn't re-run, so the class stays
-  // whatever it was when the page was frozen) and plain back/forward
-  // navigations that reuse a stale cached HTML response (script re-runs,
-  // but the liquid-rendered count baked into that HTML is outdated).
-  window.addEventListener('pageshow', syncCartEmptyStateFromServer);
-</script>
 
 <script>
   (function () {
