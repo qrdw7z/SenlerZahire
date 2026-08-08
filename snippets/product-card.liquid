@@ -88,6 +88,11 @@
     ref="productCardLink"
     aria-label="{{ product.title | escape }}"
   ></a>
+  {%- unless onboarding -%}
+    <div class="product-card__wishlist">
+      {% render 'wishlist-button', product: product %}
+    </div>
+  {%- endunless -%}
   <div
     class="
       product-card__content

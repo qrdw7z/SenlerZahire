@@ -147,8 +147,87 @@
         {{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})
       </a>
     </div>
+
+    <div>
+      <h2>{{ 'customer.account.wishlist' | t }}</h2>
+      <div
+        id="wishlist-account-list"
+        data-money-format="{{ shop.money_format | escape }}"
+        data-remove-label="{{ 'customer.account.wishlist_remove' | t | escape }}"
+      >
+        <p data-wishlist-empty>{{ 'customer.account.wishlist_empty' | t }}</p>
+        <div
+          data-wishlist-grid
+          class="wishlist-grid"
+        ></div>
+      </div>
+    </div>
   </div>
 </div>
+
+{% stylesheet %}
+  .wishlist-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .wishlist-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .wishlist-card__image-link {
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 8px;
+    background: var(--color-background, #f4f4f4);
+  }
+
+  .wishlist-card__image-link img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .wishlist-card__info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .wishlist-card__title {
+    font-size: 0.9rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .wishlist-card__price {
+    font-size: 0.85rem;
+    opacity: 0.75;
+  }
+
+  .wishlist-card__remove {
+    all: unset;
+    cursor: pointer;
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    width: 1.6rem;
+    height: 1.6rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgb(255 255 255 / 85%);
+    font-size: 1.1rem;
+    line-height: 1;
+  }
+{% endstylesheet %}
 
 {% schema %}
 {

@@ -228,6 +228,8 @@
             add_to_cart_text: add_to_cart_text
           %}
 
+          {% render 'wishlist-button', product: product, class: 'wishlist-button--large' %}
+
           {% content_for 'block',
             type: 'accelerated-checkout',
             id: 'accelerated-checkout',
