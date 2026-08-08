@@ -45,7 +45,7 @@
         "announcement_hGf63d": {
           "type": "_announcement",
           "settings": {
-            "text": "<strong>📦 Saat 13:00'den Önce Verilen Siparişler Aynı Gün Kargo</strong>",
+            "text": "<strong>📦 Saat 13:00'den Önce Verilen Siparişler Aynı Gün Kargoya Verilir</strong>",
             "link": "",
             "font": "var(--font-heading--family)",
             "font_size": "0.75rem",
