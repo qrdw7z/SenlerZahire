@@ -42,6 +42,20 @@
           },
           "blocks": {}
         },
+        "announcement_hGf63d": {
+          "type": "_announcement",
+          "settings": {
+            "text": "<strong>📦 Saat 13:00'den Önce Verilen Siparişler Aynı Gün Kargo</strong>",
+            "link": "",
+            "font": "var(--font-heading--family)",
+            "font_size": "0.75rem",
+            "weight": "700",
+            "letter_spacing": "normal",
+            "case": "none",
+            "text_color": ""
+          },
+          "blocks": {}
+        },
         "announcement_local": {
           "type": "_announcement",
           "settings": {
@@ -74,6 +88,7 @@
       "block_order": [
         "announcement_BxgCk9",
         "announcement_shipping",
+        "announcement_hGf63d",
         "announcement_local",
         "announcement_cod"
       ],
