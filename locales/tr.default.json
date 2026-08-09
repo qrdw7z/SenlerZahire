@@ -348,16 +348,7 @@
       "quantity_maximum": "Maksimum: {{ maximum }}",
       "in_cart": "sepette",
       "default_title": "Varsayılan Başlık",
-      "sticky_add_to_cart": "Sepete hızlı ekle çubuğu",
-      "add_to_wishlist": "Favorilere ekle",
-      "remove_from_wishlist": "Favorilerden çıkar"
-    }
-  },
-  "customer": {
-    "account": {
-      "wishlist": "Favori Ürünlerim",
-      "wishlist_empty": "Henüz favori ürününüz yok.",
-      "wishlist_remove": "Favorilerden çıkar"
+      "sticky_add_to_cart": "Sepete hızlı ekle çubuğu"
     }
   }
 }
