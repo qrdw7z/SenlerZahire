@@ -228,27 +228,6 @@
             add_to_cart_text: add_to_cart_text
           %}
 
-          <button
-            type="button"
-            class="wishlist-button wishlist-button--large"
-            data-wishlist-toggle
-            data-product-id="{{ product.id }}"
-            data-product-handle="{{ product.handle }}"
-            aria-pressed="false"
-            aria-label="{{ 'products.product.add_to_wishlist' | t }}"
-          >
-            <span class="svg-wrapper">
-              <svg
-                viewBox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg"
-                focusable="false"
-                aria-hidden="true"
-              >
-                {% render 'icon', icon: 'heart' %}
-              </svg>
-            </span>
-          </button>
-
           {% content_for 'block',
             type: 'accelerated-checkout',
             id: 'accelerated-checkout',
@@ -403,58 +382,6 @@
 {% endif %}
 
 {% render 'buy-buttons-styles' %}
-
-{% stylesheet %}
-  .wishlist-button {
-    all: unset;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    width: 2.2rem;
-    height: 2.2rem;
-    flex-shrink: 0;
-  }
-
-  .wishlist-button .svg-wrapper svg {
-    width: 1.4rem;
-    height: 1.4rem;
-    fill: currentcolor;
-    transition: transform 0.15s ease;
-  }
-
-  .wishlist-button[aria-pressed='true'] .svg-wrapper svg {
-    fill: #c0392b;
-  }
-
-  .wishlist-button:active .svg-wrapper svg {
-    transform: scale(0.85);
-  }
-
-  .wishlist-button--large {
-    width: 2.8rem;
-    height: 2.8rem;
-  }
-
-  .wishlist-button--large .svg-wrapper svg {
-    width: 1.7rem;
-    height: 1.7rem;
-  }
-
-  .product-card__wishlist {
-    position: absolute;
-    top: 0.5rem;
-    right: 0.5rem;
-    z-index: 2;
-    border-radius: 50%;
-    background: rgb(255 255 255 / 85%);
-  }
-
-  .product-card {
-    position: relative;
-  }
-{% endstylesheet %}
 
 {% schema %}
 {

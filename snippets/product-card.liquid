@@ -99,7 +99,7 @@
         aria-pressed="false"
         aria-label="{{ 'products.product.add_to_wishlist' | t }}"
       >
-        <span class="svg-wrapper">
+        <span class="svg-wrapper svg-wrapper--outline">
           <svg
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -107,6 +107,16 @@
             aria-hidden="true"
           >
             {% render 'icon', icon: 'heart' %}
+          </svg>
+        </span>
+        <span class="svg-wrapper svg-wrapper--filled">
+          <svg
+            viewBox="0 0 20 20"
+            xmlns="http://www.w3.org/2000/svg"
+            focusable="false"
+            aria-hidden="true"
+          >
+            {% render 'icon', icon: 'heart_fill' %}
           </svg>
         </span>
       </button>
@@ -156,6 +166,10 @@
     flex-shrink: 0;
   }
 
+  .wishlist-button .svg-wrapper {
+    display: inline-flex;
+  }
+
   .wishlist-button .svg-wrapper svg {
     width: 1.4rem;
     height: 1.4rem;
@@ -163,7 +177,19 @@
     transition: transform 0.15s ease;
   }
 
-  .wishlist-button[aria-pressed='true'] .svg-wrapper svg {
+  .wishlist-button .svg-wrapper--filled {
+    display: none;
+  }
+
+  .wishlist-button[aria-pressed='true'] .svg-wrapper--outline {
+    display: none;
+  }
+
+  .wishlist-button[aria-pressed='true'] .svg-wrapper--filled {
+    display: inline-flex;
+  }
+
+  .wishlist-button[aria-pressed='true'] .svg-wrapper--filled svg {
     fill: #c0392b;
   }
 
