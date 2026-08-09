@@ -117,41 +117,9 @@
               {% render 'text-with-icon-block', block: block, margins: true, block_attributes: true %}
             {%- when 'title' -%}
               <div class="product__title" {{ block.shopify_attributes }} style="--margin-top: {{ block.settings.margin_top | divided_by: 10.0 }}rem;--margin-bottom: {{ block.settings.margin_bottom | divided_by: 10.0 }}rem;">
-                <div class="product-title-row">
-                  <h1 class="{{ block.settings.text_size }}{% if block.settings.uppercase_title %} product-title--uppercase{% endif %}{% if block.settings.title_alignment == 'center' %} center{% endif %}">
-                    {{ product.title }}
-                  </h1>
-                  <button
-                    type="button"
-                    class="wishlist-button"
-                    data-wishlist-toggle
-                    data-product-id="{{ product.id }}"
-                    data-product-handle="{{ product.handle }}"
-                    aria-pressed="false"
-                    aria-label="{{ 'products.product.add_to_wishlist' | t }}"
-                  >
-                    <span class="svg-wrapper svg-wrapper--outline">
-                      <svg
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                        focusable="false"
-                        aria-hidden="true"
-                      >
-                        {% render 'icon', icon: 'heart' %}
-                      </svg>
-                    </span>
-                    <span class="svg-wrapper svg-wrapper--filled">
-                      <svg
-                        viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                        focusable="false"
-                        aria-hidden="true"
-                      >
-                        {% render 'icon', icon: 'heart_fill' %}
-                      </svg>
-                    </span>
-                  </button>
-                </div>
+                <h1 class="{{ block.settings.text_size }}{% if block.settings.uppercase_title %} product-title--uppercase{% endif %}{% if block.settings.title_alignment == 'center' %} center{% endif %}">
+                  {{ product.title }}
+                </h1>
                 <a href="{{ product.url }}" class="product__title">
                   <h2 class="h1">
                     {{ product.title }}
@@ -1223,58 +1191,6 @@
     }
   </script>
 </section>
-
-{% stylesheet %}
-  .product-title-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: var(--gap-xs);
-  }
-
-  .product-title-row .wishlist-button {
-    all: unset;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    width: 2.2rem;
-    height: 2.2rem;
-    flex-shrink: 0;
-  }
-
-  .product-title-row .wishlist-button .svg-wrapper {
-    display: inline-flex;
-  }
-
-  .product-title-row .wishlist-button .svg-wrapper svg {
-    width: 1.5rem;
-    height: 1.5rem;
-    fill: currentcolor;
-    transition: transform 0.15s ease;
-  }
-
-  .product-title-row .wishlist-button .svg-wrapper--filled {
-    display: none;
-  }
-
-  .product-title-row .wishlist-button[aria-pressed='true'] .svg-wrapper--outline {
-    display: none;
-  }
-
-  .product-title-row .wishlist-button[aria-pressed='true'] .svg-wrapper--filled {
-    display: inline-flex;
-  }
-
-  .product-title-row .wishlist-button[aria-pressed='true'] .svg-wrapper--filled svg {
-    fill: #c0392b;
-  }
-
-  .product-title-row .wishlist-button:active .svg-wrapper svg {
-    transform: scale(0.85);
-  }
-{% endstylesheet %}
 
 {% schema %}
 {
