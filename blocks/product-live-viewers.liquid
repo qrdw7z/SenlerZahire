@@ -1,0 +1,199 @@
+<script
+  src="{{ 'product-live-viewers.js' | asset_url }}"
+  type="module"
+  fetchpriority="low"
+></script>
+
+{% liquid
+  assign block_settings = block.settings
+  assign min_viewers = block_settings.min_viewers
+  assign max_viewers = block_settings.max_viewers
+
+  if max_viewers < min_viewers
+    assign max_viewers = min_viewers
+  endif
+
+  assign viewer_range = max_viewers | minus: min_viewers | plus: 1
+  assign day_seed = 'now' | date: '%j' | plus: 0
+  assign product_seed = closest.product.id | default: 1
+  assign combined_seed = product_seed | times: 31 | plus: day_seed
+  assign seed_mod = combined_seed | modulo: viewer_range
+  assign viewer_count = seed_mod | plus: min_viewers
+
+  assign display_text = block_settings.text | replace: '{count}', viewer_count
+%}
+
+{% if block_settings.text_color != blank %}
+  {% style %}
+    .product-live-viewers-{{ block.id }} {
+      color: {{ block_settings.text_color }};
+    }
+  {% endstyle %}
+{% endif %}
+
+<product-live-viewers
+  class="
+    product-live-viewers product-live-viewers-{{ block.id }} spacing-style
+    {% if block_settings.type_preset != '' %}{{ block_settings.type_preset }}{% endif %}
+  "
+  style="{% render 'spacing-style', settings: block_settings %}"
+  {{ block.shopify_attributes }}
+  data-min="{{ min_viewers }}"
+  data-max="{{ max_viewers }}"
+  data-live-update="{{ block_settings.live_update }}"
+>
+  <span class="product-live-viewers__status">
+    <span
+      class="svg-wrapper product-live-viewers__icon"
+      style="{% if block_settings.icon_color != blank %}color: {{ block_settings.icon_color }};{% endif %}"
+    >
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path
+          d="M1.5 12S5 5 12 5s10.5 7 10.5 7-3.5 7-10.5 7S1.5 12 1.5 12Z"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.5" />
+      </svg>
+    </span>
+    <span class="product-live-viewers__text" data-live-viewers-text>
+      {{ display_text }}
+    </span>
+  </span>
+</product-live-viewers>
+
+{% stylesheet %}
+  .product-live-viewers__status {
+    display: flex;
+    align-items: center;
+    font-size: var(--font-paragraph--size);
+    line-height: var(--font-paragraph--line-height);
+    gap: var(--padding-xs);
+  }
+
+  .product-live-viewers__icon,
+  .product-live-viewers__icon svg {
+    width: var(--icon-size-sm);
+    height: var(--icon-size-sm);
+    flex-shrink: 0;
+  }
+{% endstylesheet %}
+
+{% schema %}
+{
+  "name": "Şu anda kaç kişi bakıyor",
+  "tag": null,
+  "settings": [
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Metin",
+      "default": "Bugün {count} kişi bu ürüne baktı",
+      "info": "{count} yerine gerçek zamanlı ziyaretçi sayısı yazılır."
+    },
+    {
+      "type": "range",
+      "id": "min_viewers",
+      "label": "En az kişi sayısı",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "max_viewers",
+      "label": "En fazla kişi sayısı",
+      "min": 1,
+      "max": 50,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "live_update",
+      "label": "Sayıyı zaman zaman değiştir (canlı görünüm)",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Görünüm"
+    },
+    {
+      "type": "select",
+      "id": "type_preset",
+      "label": "Yazı tipi ön ayarı",
+      "options": [
+        { "value": "", "label": "Varsayılan" },
+        { "value": "paragraph", "label": "Paragraf" },
+        { "value": "h6", "label": "Küçük başlık" }
+      ],
+      "default": "paragraph"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Yazı rengi",
+      "placeholder": "Varsayılan"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "İkon rengi",
+      "placeholder": "Varsayılan"
+    },
+    {
+      "type": "header",
+      "content": "İç boşluk"
+    },
+    {
+      "type": "range",
+      "id": "padding-block-start",
+      "label": "Üst",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-block-end",
+      "label": "Alt",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-start",
+      "label": "Sol",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding-inline-end",
+      "label": "Sağ",
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Şu anda kaç kişi bakıyor",
+      "category": "Ürün"
+    }
+  ]
+}
+{% endschema %}

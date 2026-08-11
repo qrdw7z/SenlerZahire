@@ -796,6 +796,23 @@
               },
               "blocks": {}
             },
+            "live_viewers_Xk9pQr": {
+              "type": "product-live-viewers",
+              "settings": {
+                "text": "Bugün {count} kişi bu ürüne baktı",
+                "min_viewers": 3,
+                "max_viewers": 12,
+                "live_update": true,
+                "type_preset": "paragraph",
+                "text_color": "",
+                "icon_color": "{{ settings.color_palette.color1 }}",
+                "padding-block-start": 8,
+                "padding-block-end": 0,
+                "padding-inline-start": 0,
+                "padding-inline-end": 0
+              },
+              "blocks": {}
+            },
             "buy_buttons_eYQEYi": {
               "type": "buy-buttons",
               "settings": {
@@ -1355,6 +1372,7 @@
             "group_icgrde",
             "divider_VJhene",
             "variant_picker_R3rGDr",
+            "live_viewers_Xk9pQr",
             "buy_buttons_eYQEYi",
             "divider_trustbadges_Nh6Wzo",
             "group_trustbadges_Qk3Ptn",
